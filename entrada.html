@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprar Entrada</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <header>
+        <div class="contenedor">
+            <div class="menu"> 
+                <div class="logo">
+                    <img src="grupo.webp" alt="grupo" width="90px" height="80px">
+                    <h2>Heavy <br> &nbsp;&nbsp;&nbsp;Saurio</h2>
+                </div>
+                <input type="checkbox" id="menu">
+                <label for="menu">
+                <img src="menu.png" class="icono" alt="">
+                </label>
+                <nav class="navbar">
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="div2">
+            <h1>Compra de Entradas</h1><br>
+            <form id="ticketForm">
+                <p>Nombre:<input type="text" id="nombre" name="nombre"></p><br>
+                <p>Correo:<input type="text" id="correo" name="correo"></p><br>
+                <p>Telefono:<input type="text" id="telefono" name="telefono"></p><br>
+                
+                <div>
+                    <label for="ticketType">Tipo de Entrada:</label>
+                    <select id="ticketType">
+                        <option value="general">General - $20</option>
+                        <option value="vip">VIP - $50</option>
+                        <option value="backstage">Backstage Pass - $100</option>
+                    </select>
+                </div>
+                <br>
+                <div>
+                    <label for="quantity">Cantidad:</label>
+                    <input type="number" id="quantity" value="1" min="1">
+                </div>
+                <br>
+                <div class="form-control">
+                    <button type="button" onclick="calcularTotal()">Calcular Total</button>
+                </div>
+            </form>
+            <br>
+            <div class="div3" id="totalDisplay" style="display: none;">
+                <h2>Detalles de la Compra:</h2><br>
+                <div>
+                <p id="purchaseDetails"></p><br>
+                <p style="font-size: 30px;" id="totalAmount" class="center"></p><br>
+                </div>
+                <p class="center"><button onclick="confirmarCompra()">Confirmar Compra</button></p>
+            </div>
+        </div>
+    </main>
+    <script>
+        function calcularTotal() {
+            const nombre = document.getElementById('nombre').value;
+            const correo = document.getElementById('correo').value;
+            const telefono = document.getElementById('telefono').value;
+            const ticketType = document.getElementById('ticketType').value;
+            const quantity = document.getElementById('quantity').valueAsNumber;
+
+            let precioUnitario = 0;
+            switch (ticketType) {
+                case 'general':
+                    precioUnitario = 20;
+                    break;
+                case 'vip':
+                    precioUnitario = 50;
+                    break;
+                case 'backstage':
+                    precioUnitario = 100;
+                    break;
+                default:
+                    precioUnitario = 20;
+                    break;
+            }
+
+            const total = precioUnitario * quantity;
+            document.getElementById('totalAmount').textContent = `$${total}`;
+            
+            
+            const details = `Nombre: ${nombre}<br>
+                             Correo: ${correo}<br>
+                             Teléfono: ${telefono}<br>
+                             Tipo de Entrada: ${ticketType}<br>
+                             Cantidad: ${quantity}`;
+            document.getElementById('purchaseDetails').innerHTML = details;
+
+            document.getElementById('totalDisplay').style.display = 'block';
+        }
+
+        function confirmarCompra() {
+            const total = document.getElementById('totalAmount').textContent;
+            const confirmationMessage = `Compra confirmada.`;
+
+            alert(confirmationMessage);
+        }
+    </script>
+</body>
+</html>
